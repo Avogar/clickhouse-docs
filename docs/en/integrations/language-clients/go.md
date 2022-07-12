@@ -18,6 +18,10 @@ like so:
 ```
 <CodeBlock language="go">{conn_test}</CodeBlock>
 ```
+:::note
+You probably have to do a `yarn install` after pulling my branch, as you won't have the plugin used to slurp in files.
+:::
+
 
 :::note
 I will work on a system to import named blocks from the source files 
