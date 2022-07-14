@@ -29,4 +29,12 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* colors found with Chrome extension CSSViewer 
+ * https://chrome.google.com/webstore/detail/cssviewer
+ *
+  --gray-text: #B0B4BC;
+  --yellow-text: #FFB200;
+  --lighter-background: #443F51;
+  --darker-background-color: #2F2E36; /* set as --ifm-background-color */
+*/
 }
