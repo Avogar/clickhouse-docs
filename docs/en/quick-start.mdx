@@ -15,17 +15,13 @@ ClickHouse runs on ClickHouse Cloud, or on any Linux, FreeBSD, or Mac OS X syste
 ##  1. Get ClickHouse
 
 <Tabs groupId="deployMethod">
-  <TabItem value="serverless" label="ClickHouse Cloud" default>
+<TabItem value="serverless" label="ClickHouse Cloud" default>
   Placeholder, we will work on this with the Cloud team as we get closer to locking down the UX.
 
 ![Get started with ClickHouse Cloud](./images/cloud_demo_small_de3d370183.gif)
 
-  </TabItem>
-  <TabItem value="selfmanaged" label="Self Managed">
-  opening self managed
-<CodeBlock language="sql">
-    content
-</CodeBlock>
+</TabItem>
+<TabItem value="selfmanaged" label="Self Managed">
 
 :::note
 If your OS is not supported or for other install options, view the [installation details in the technical reference guide](/en/getting-started/install/).
@@ -33,7 +29,6 @@ If your OS is not supported or for other install options, view the [installation
 
 <Tabs groupId="os">
 <TabItem value="linux" label="Linux" default>
-opening linux
 
 1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
 <CodeBlock language="bash">
@@ -56,15 +51,15 @@ opening linux
     Enter password for default user:
 </CodeBlock>
 
-    You should see the following output:
+   You should see the following output:
 <CodeBlock language="bash">
-    ClickHouse has been successfully installed.
+   ClickHouse has been successfully installed.
 
-    Start clickhouse-server with:
-     sudo clickhouse start
+   Start clickhouse-server with:
+    sudo clickhouse start
 
-    Start clickhouse-client with:
-     clickhouse-client
+   Start clickhouse-client with:
+    clickhouse-client
 </CodeBlock>
 
 4. Run the following command to start the ClickHouse server:
@@ -72,10 +67,8 @@ opening linux
     sudo clickhouse start
 </CodeBlock>
 
-closing linux
 </TabItem>
 <TabItem value="mac" label="macOS">
-opening mac
 
 1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
 <CodeBlock language="bash">
@@ -87,28 +80,37 @@ opening mac
     ./clickhouse server
 </CodeBlock>
 
-    :::info Important
-    The examples throughout the documentation use the Linux commands for running the ClickHouse client (`clickhouse-client`).
+:::info Important
+The examples throughout the documentation use the Linux commands for running the ClickHouse client (`clickhouse-client`).
 
-    To run the ClickHouse server and client on a Mac, use `./clickhouse server` and `./clickhouse client`, respectively.
-    :::
+To run the ClickHouse server and client on a Mac, use `./clickhouse server` and `./clickhouse client`, respectively.
+:::
 
-closing mac
 </TabItem>
 </Tabs>
-closing self managed
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ## 2. Connect to ClickHouse
 
-ClickHouse listens for connections on t
+ClickHouse provides a web based SQL console that this part of the Quick Start will use.  Later on you will use `clickhouse-client` to connect to your ClickHouse service, and other clients are described in the pages in the *What's Next* section.
 
-1. The ClickHouse server listens for HTTP clients on port 8123 by default. There is a built-in UI for running SQL queries at <a href="http://127.0.0.1:8123/play" target="_blank">http://127.0.0.1:8123/play</a> (change the hostname accordingly).
+<Tabs groupId="deployMethod">
+<TabItem value="serverless" label="ClickHouse Cloud" default>
 
-    <img src={require('./images/quickstart_01.png').default} class="image" alt="The Play UI" />
+  cloud
+
+</TabItem>
+<TabItem value="selfmanaged" label="Self Managed">
+
+1. The ClickHouse server listens for HTTP clients on port 8123 by default. There is a built-in UI for running SQL queries at [http://127.0.0.1:8123/play](http://127.0.0.1:8123/play) (change the hostname accordingly).
+
+  ![The Play UI](./images/quickstart_01.png)
 
 2. Notice in your Play UI that the username was populated with **default** and the password text field was left empty. If you assigned a password to the `default` user, enter it into the password field.
+
+</TabItem>
+</Tabs>
 
 3. Try running a query. For example, the following returns the names of the predefined databases:
 <CodeBlock language="bash">
@@ -186,10 +188,9 @@ rows at once. (Don't worry - ClickHouse can easily handle that type of volume!)
         (101, 'Granules are the smallest chunks of data read',      now() + 5,   3.14159 )
 </CodeBlock>
 
-    :::note
-    Notice the `timestamp` column is populated using various **Date** and **DateTime** functions. ClickHouse has hundreds of useful
-    functions that you can [view in the **Functions** section](/en/sql-reference/functions/).
-    :::
+:::note
+Notice the `timestamp` column is populated using various **Date** and **DateTime** functions. ClickHouse has hundreds of useful functions that you can [view in the **Functions** section](/en/sql-reference/functions/).
+:::
 
 2. Let's verify it worked:
 <CodeBlock language="bash">
@@ -202,28 +203,19 @@ rows at once. (Don't worry - ClickHouse can easily handle that type of volume!)
 ## 5. The ClickHouse Client
 
 <Tabs groupId="deployMethod">
-  <TabItem value="serverless" label="ClickHouse Cloud" default>
-  opening cloud client
-<CodeBlock language="sql">
+<TabItem value="serverless" label="ClickHouse Cloud" default>
     content
-</CodeBlock>
-closing cloud client
-  </TabItem>
-  <TabItem value="selfmanaged" label="Self Managed">
-  opening self managed client
-<CodeBlock language="sql">
+</TabItem>
+<TabItem value="selfmanaged" label="Self Managed">
     content
-</CodeBlock>
 <Tabs groupId="os">
 <TabItem value="linux" label="Linux" default>
-opening slef managed client linux
 
 1. You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**:
 <CodeBlock language="bash">
     clickhouse-client
 </CodeBlock>
 
-closing self managed client linux
 </TabItem>
 <TabItem value="mac" label="macOS">
 
@@ -238,49 +230,49 @@ closing self managed client linux
     :)
 </CodeBlock>
 
-    Give it a try by running the following query:
+  Give it a try by running the following query:
 <CodeBlock language="bash">
     SELECT *
     FROM helloworld.my_first_table
     ORDER BY timestamp
 </CodeBlock>
 
-    Notice the response comes back in a nice table format:
-<CodeBlock language="bash">
-    SELECT *
-    FROM helloworld.my_first_table
-    ORDER BY timestamp ASC
+  Notice the response comes back in a nice table format:
 
-    Query id: f7a33012-bc8c-4f0f-9641-260ee1ffe4b8
+  <CodeBlock language="sql">
+  SELECT *
+  FROM helloworld.my_first_table
+  ORDER BY timestamp ASC
 
-    ┌─user_id─┬─message────────────────────────────────────────────┬───────────timestamp─┬──metric─┐
-    │     102 │ Insert a lot of rows per batch                     │ 2022-03-21 00:00:00 │ 1.41421 │
-    │     102 │ Sort your data based on your commonly-used queries │ 2022-03-22 00:00:00 │   2.718 │
-    │     101 │ Hello, ClickHouse!                                 │ 2022-03-22 14:04:09 │      -1 │
-    │     101 │ Granules are the smallest chunks of data read      │ 2022-03-22 14:04:14 │ 3.14159 │
-    └─────────┴────────────────────────────────────────────────────┴─────────────────────┴─────────┘
+  Query id: f7a33012-bc8c-4f0f-9641-260ee1ffe4b8
 
-    4 rows in set. Elapsed: 0.008 sec.
-</CodeBlock>
+  ┌─user_id─┬─message────────────────────────────────────────────┬───────────timestamp─┬──metric─┐
+  │     102 │ Insert a lot of rows per batch                     │ 2022-03-21 00:00:00 │ 1.41421 │
+  │     102 │ Sort your data based on your commonly-used queries │ 2022-03-22 00:00:00 │   2.718 │
+  │     101 │ Hello, ClickHouse!                                 │ 2022-03-22 14:04:09 │      -1 │
+  │     101 │ Granules are the smallest chunks of data read      │ 2022-03-22 14:04:14 │ 3.14159 │
+  └─────────┴────────────────────────────────────────────────────┴─────────────────────┴─────────┘
+
+  4 rows in set. Elapsed: 0.008 sec.
+  </CodeBlock>
 
 3. Add a `FORMAT` clause to specify one of the [many supported output formats of ClickHouse](/en/interfaces/formats/):
+  ```sql
+  SELECT *
+  FROM helloworld.my_first_table
+  ORDER BY timestamp
+  FORMAT TabSeparated
+  ```
+  In the above query, the output is returned as tab-separated:
 <CodeBlock language="bash">
-    SELECT *
-    FROM helloworld.my_first_table
-    ORDER BY timestamp
-    FORMAT TabSeparated
-    </CodeBlock>
-    In the above query, the output is returned as tab-separated:
+  Query id: 3604df1c-acfd-4117-9c56-f86c69721121
 
-<CodeBlock language="bash">
-    Query id: 3604df1c-acfd-4117-9c56-f86c69721121
+  102	Insert a lot of rows per batch	2022-03-21 00:00:00	1.41421
+  102	Sort your data based on your commonly-used queries	2022-03-22 00:00:00	2.718
+  101	Hello, ClickHouse!	2022-03-22 14:04:09	-1
+  101	Granules are the smallest chunks of data read	2022-03-22 14:04:14	3.14159
 
-    102	Insert a lot of rows per batch	2022-03-21 00:00:00	1.41421
-    102	Sort your data based on your commonly-used queries	2022-03-22 00:00:00	2.718
-    101	Hello, ClickHouse!	2022-03-22 14:04:09	-1
-    101	Granules are the smallest chunks of data read	2022-03-22 14:04:14	3.14159
-
-    4 rows in set. Elapsed: 0.005 sec.
+  4 rows in set. Elapsed: 0.005 sec.
 </CodeBlock>
 
 4. To exit the `clickhouse-client`, enter the **exit** command:
@@ -291,7 +283,7 @@ closing self managed client linux
 
 </TabItem>
 </Tabs>
-  </TabItem>
+</TabItem>
 </Tabs>
 
 ## 6. Insert a CSV file
