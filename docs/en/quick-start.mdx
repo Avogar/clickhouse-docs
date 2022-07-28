@@ -10,7 +10,10 @@ import CodeBlock from '@theme/CodeBlock';
 
 # Quick Start
 
+ <font size="5">
 ClickHouse runs on ClickHouse Cloud, or on any Linux, FreeBSD, or Mac OS X system with x86_64, AArch64, or PowerPC64LE CPU architecture. Follow these steps to get up and running with ClickHouse.
+ </font> 
+
 
 ##  1. Get ClickHouse
 
@@ -31,28 +34,28 @@ If your OS is not supported or for other install options, view the [installation
 <TabItem value="linux" label="Linux" default>
 
 1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
-```
-curl https://clickhouse.com/ | sh
-```
+  ```bash
+  curl https://clickhouse.com/ | sh
+  ```
 
 2. Run the `install` command, which defines a collection of useful symlinks along with the files and folders used by ClickHouse - all of which you can see in the output of the install script:
-```
-    sudo ./clickhouse install
-```
+  ```bash
+  sudo ./clickhouse install
+  ```
 
 3. At the end of the install script, you are prompted for a password for the `default` user. Feel free to enter a password, or you can optionally leave it blank:
-```
-    Creating log directory /var/log/clickhouse-server.
-    Creating data directory /var/lib/clickhouse.
-    Creating pid directory /var/run/clickhouse-server.
-     chown -R clickhouse:clickhouse '/var/log/clickhouse-server'
-     chown -R clickhouse:clickhouse '/var/run/clickhouse-server'
-     chown  clickhouse:clickhouse '/var/lib/clickhouse'
-    Enter password for default user:
-```
+  ```response
+  Creating log directory /var/log/clickhouse-server.
+  Creating data directory /var/lib/clickhouse.
+  Creating pid directory /var/run/clickhouse-server.
+   chown -R clickhouse:clickhouse '/var/log/clickhouse-server'
+   chown -R clickhouse:clickhouse '/var/run/clickhouse-server'
+   chown  clickhouse:clickhouse '/var/lib/clickhouse'
+  Enter password for default user:
+  ```
 
   You should see the following output:
-```
+  ```
    ClickHouse has been successfully installed.
 
    Start clickhouse-server with:
@@ -60,12 +63,12 @@ curl https://clickhouse.com/ | sh
 
    Start clickhouse-client with:
     clickhouse-client
-```
+  ```
 
 4. Run the following command to start the ClickHouse server:
-```
-    sudo clickhouse start
-```
+  ```
+  sudo clickhouse start
+  ```
 
 </TabItem>
 <TabItem value="mac" label="macOS">
@@ -96,7 +99,18 @@ ClickHouse provides a web based SQL console that this part of the Quick Start wi
 <Tabs groupId="deployMethod">
 <TabItem value="serverless" label="ClickHouse Cloud" default>
 
-  cloud
+### Connect to SQL console
+
+You can connect to the SQL console from the Services list in your ClickHouse Cloud organization.
+
+From your organization page, open the connection details for the service that you want to connect to:
+  ![Services list](./images/quickstart/Services.png)
+
+From here you can reset the password for the `default` user, get the connection information to connect clients (SQL clients, visualization tools, development language clients, etc.), and **connect to SQL console**.
+  ![Service connection details](./images/quickstart/ServiceDetails.png)
+
+The SQL console requires a username and password, the username is populated with `default`; change it to your username if you are not using the default user.  Enter your password in the password field.
+  ![The SQL console](./images/quickstart/SQLConsole.png)
 
 </TabItem>
 <TabItem value="selfmanaged" label="Self Managed">
@@ -110,16 +124,16 @@ ClickHouse provides a web based SQL console that this part of the Quick Start wi
 </TabItem>
 </Tabs>
 
-3. Try running a query. For example, the following returns the names of the predefined databases:
+3. Run a query. For example, the following returns the names of the databases:
   ```
   SHOW databases
   ```
 
 4. Click the **RUN** button and the response is displayed in the lower portion of the Play UI:
 
-    <img src={require('./images/quickstart_02.png').default} class="image" alt="View the results" />
+  ![View the results](./images/quickstart/ShowDatabases.png)
 
-## 3. Create a Table
+## 3. Create a database, and a table in that database
 
 1. As in most databases management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
   ```
@@ -143,6 +157,7 @@ ClickHouse provides a web based SQL console that this part of the Quick Start wi
   ENGINE = MergeTree()
   PRIMARY KEY (user_id, timestamp)
   ```
+
 
 ### A Brief Intro to Primary Keys
 
