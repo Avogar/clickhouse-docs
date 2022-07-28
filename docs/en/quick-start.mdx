@@ -31,17 +31,17 @@ If your OS is not supported or for other install options, view the [installation
 <TabItem value="linux" label="Linux" default>
 
 1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
-<CodeBlock language="bash">
-    curl https://clickhouse.com/ | sh
-</CodeBlock>
+```
+curl https://clickhouse.com/ | sh
+```
 
 2. Run the `install` command, which defines a collection of useful symlinks along with the files and folders used by ClickHouse - all of which you can see in the output of the install script:
-<CodeBlock language="bash">
+```
     sudo ./clickhouse install
-</CodeBlock>
+```
 
 3. At the end of the install script, you are prompted for a password for the `default` user. Feel free to enter a password, or you can optionally leave it blank:
-<CodeBlock language="bash">
+```
     Creating log directory /var/log/clickhouse-server.
     Creating data directory /var/lib/clickhouse.
     Creating pid directory /var/run/clickhouse-server.
@@ -49,10 +49,10 @@ If your OS is not supported or for other install options, view the [installation
      chown -R clickhouse:clickhouse '/var/run/clickhouse-server'
      chown  clickhouse:clickhouse '/var/lib/clickhouse'
     Enter password for default user:
-</CodeBlock>
+```
 
-   You should see the following output:
-<CodeBlock language="bash">
+  You should see the following output:
+```
    ClickHouse has been successfully installed.
 
    Start clickhouse-server with:
@@ -60,29 +60,27 @@ If your OS is not supported or for other install options, view the [installation
 
    Start clickhouse-client with:
     clickhouse-client
-</CodeBlock>
+```
 
 4. Run the following command to start the ClickHouse server:
-<CodeBlock language="bash">
+```
     sudo clickhouse start
-</CodeBlock>
+```
 
 </TabItem>
 <TabItem value="mac" label="macOS">
 
 1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
-<CodeBlock language="bash">
-    curl https://clickhouse.com/ | sh
-</CodeBlock>
+  ```
+  curl https://clickhouse.com/ | sh
+  ```
 
 2. Run the following command to start the ClickHouse server. A user named `default` with no password is created on the initial startup:
-<CodeBlock language="bash">
-    ./clickhouse server
-</CodeBlock>
-
+  ```
+  ./clickhouse server
+  ```
 :::info Important
-The examples throughout the documentation use the Linux commands for running the ClickHouse client (`clickhouse-client`).
-
+The examples throughout the documentation use the Linux commands for running the ClickHouse client (`clickhouse-client`).  
 To run the ClickHouse server and client on a Mac, use `./clickhouse server` and `./clickhouse client`, respectively.
 :::
 
@@ -113,9 +111,9 @@ ClickHouse provides a web based SQL console that this part of the Quick Start wi
 </Tabs>
 
 3. Try running a query. For example, the following returns the names of the predefined databases:
-<CodeBlock language="bash">
-    SHOW databases
-</CodeBlock>
+  ```
+  SHOW databases
+  ```
 
 4. Click the **RUN** button and the response is displayed in the lower portion of the Play UI:
 
@@ -124,28 +122,27 @@ ClickHouse provides a web based SQL console that this part of the Quick Start wi
 ## 3. Create a Table
 
 1. As in most databases management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
-<CodeBlock language="bash">
-    CREATE DATABASE IF NOT EXISTS helloworld
-</CodeBlock>
+  ```
+  CREATE DATABASE IF NOT EXISTS helloworld
+  ```
 
 2. Even the simplest of tables in ClickHouse must specify a **table engine**. The engine determines details about the table like:
-    - how and where the data is stored,
-    - which queries are supported, and
-    - whether or not the data is replicated.
+   - how and where the data is stored
+   - which queries are supported
+   - whether or not the data is replicated
 
-    There are many engines to choose from, but for a simple table on a single-node ClickHouse server,
-    [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. Run the following command to create a table named `my_first_table` in the `helloworld` database:
-<CodeBlock language="bash">
-    CREATE TABLE helloworld.my_first_table
-    (
-        user_id UInt32,
-        message String,
-        timestamp DateTime,
-        metric Float32
-    )
-    ENGINE = MergeTree()
-    PRIMARY KEY (user_id, timestamp)
-</CodeBlock>
+  There are many engines to choose from, but for a simple table on a single-node ClickHouse server, [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. Run the following command to create a table named `my_first_table` in the `helloworld` database:
+  ```
+  CREATE TABLE helloworld.my_first_table
+  (
+      user_id UInt32,
+      message String,
+      timestamp DateTime,
+      metric Float32
+  )
+  ENGINE = MergeTree()
+  PRIMARY KEY (user_id, timestamp)
+  ```
 
 ### A Brief Intro to Primary Keys
 
@@ -180,24 +177,23 @@ The best practice with ClickHouse is to insert a large number of rows per batch 
 rows at once. (Don't worry - ClickHouse can easily handle that type of volume!)
 
 1. Even for a simple example, let's insert more than one row at a time:
-<CodeBlock language="bash">
-    INSERT INTO helloworld.my_first_table (user_id, message, timestamp, metric) VALUES
-        (101, 'Hello, ClickHouse!',                                 now(),       -1.0    ),
-        (102, 'Insert a lot of rows per batch',                     yesterday(), 1.41421 ),
-        (102, 'Sort your data based on your commonly-used queries', today(),     2.718   ),
-        (101, 'Granules are the smallest chunks of data read',      now() + 5,   3.14159 )
-</CodeBlock>
-
+  ```
+  INSERT INTO helloworld.my_first_table (user_id, message, timestamp, metric) VALUES
+      (101, 'Hello, ClickHouse!',                                 now(),       -1.0    ),
+      (102, 'Insert a lot of rows per batch',                     yesterday(), 1.41421 ),
+      (102, 'Sort your data based on your commonly-used queries', today(),     2.718   ),
+      (101, 'Granules are the smallest chunks of data read',      now() + 5,   3.14159 )
+  ```
 :::note
 Notice the `timestamp` column is populated using various **Date** and **DateTime** functions. ClickHouse has hundreds of useful functions that you can [view in the **Functions** section](/en/sql-reference/functions/).
 :::
 
 2. Let's verify it worked:
-<CodeBlock language="bash">
-    SELECT * FROM helloworld.my_first_table
-</CodeBlock>
-    You should see the four rows of data that were inserted:
-    <img src={require('./images/quickstart_03.png').default} class="image" alt="New rows inserted" />
+  ```
+  SELECT * FROM helloworld.my_first_table
+  ```
+   You should see the four rows of data that were inserted:
+   <img src={require('./images/quickstart_03.png').default} class="image" alt="New rows inserted" />
 
 
 ## 5. The ClickHouse Client
@@ -212,49 +208,49 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
 <TabItem value="linux" label="Linux" default>
 
 1. You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**:
-<CodeBlock language="bash">
-    clickhouse-client
-</CodeBlock>
+  ```
+  clickhouse-client
+  ```
 
 </TabItem>
 <TabItem value="mac" label="macOS">
 
 1. You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**. Open a new terminal and change directories to where you downloaded the `clickhouse` binary in step 1 above, then run the following command:
-<CodeBlock language="bash">
-    ./clickhouse client
-</CodeBlock>
+  ```
+  ./clickhouse client
+  ```
 
 
 2. If you get the smiley face prompt, you are ready to run queries!
-<CodeBlock language="bash">
-    :)
-</CodeBlock>
+  ```
+  :)
+  ```
 
   Give it a try by running the following query:
-<CodeBlock language="bash">
-    SELECT *
-    FROM helloworld.my_first_table
-    ORDER BY timestamp
-</CodeBlock>
+  ```
+  SELECT *
+  FROM helloworld.my_first_table
+  ORDER BY timestamp
+  ```
 
   Notice the response comes back in a nice table format:
 
-  <CodeBlock language="sql">
-  SELECT *
-  FROM helloworld.my_first_table
-  ORDER BY timestamp ASC
-
-  Query id: f7a33012-bc8c-4f0f-9641-260ee1ffe4b8
-
-  ┌─user_id─┬─message────────────────────────────────────────────┬───────────timestamp─┬──metric─┐
-  │     102 │ Insert a lot of rows per batch                     │ 2022-03-21 00:00:00 │ 1.41421 │
-  │     102 │ Sort your data based on your commonly-used queries │ 2022-03-22 00:00:00 │   2.718 │
-  │     101 │ Hello, ClickHouse!                                 │ 2022-03-22 14:04:09 │      -1 │
-  │     101 │ Granules are the smallest chunks of data read      │ 2022-03-22 14:04:14 │ 3.14159 │
-  └─────────┴────────────────────────────────────────────────────┴─────────────────────┴─────────┘
-
-  4 rows in set. Elapsed: 0.008 sec.
-  </CodeBlock>
+   ```
+   SELECT *
+   FROM helloworld.my_first_table
+   ORDER BY timestamp ASC
+    
+   Query id: f7a33012-bc8c-4f0f-9641-260ee1ffe4b8
+    
+   ┌─user_id─┬─message────────────────────────────────────────────┬───────────timestamp─┬──metric─┐
+   │     102 │ Insert a lot of rows per batch                     │ 2022-03-21 00:00:00 │ 1.41421 │
+   │     102 │ Sort your data based on your commonly-used queries │ 2022-03-22 00:00:00 │   2.718 │
+   │     101 │ Hello, ClickHouse!                                 │ 2022-03-22 14:04:09 │      -1 │
+   │     101 │ Granules are the smallest chunks of data read      │ 2022-03-22 14:04:14 │ 3.14159 │
+   └─────────┴────────────────────────────────────────────────────┴─────────────────────┴─────────┘
+   
+   4 rows in set. Elapsed: 0.008 sec.
+   ```
 
 3. Add a `FORMAT` clause to specify one of the [many supported output formats of ClickHouse](/en/interfaces/formats/):
   ```sql
@@ -264,22 +260,22 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
   FORMAT TabSeparated
   ```
   In the above query, the output is returned as tab-separated:
-<CodeBlock language="bash">
+  ```
   Query id: 3604df1c-acfd-4117-9c56-f86c69721121
 
-  102	Insert a lot of rows per batch	2022-03-21 00:00:00	1.41421
-  102	Sort your data based on your commonly-used queries	2022-03-22 00:00:00	2.718
-  101	Hello, ClickHouse!	2022-03-22 14:04:09	-1
-  101	Granules are the smallest chunks of data read	2022-03-22 14:04:14	3.14159
+  102 Insert a lot of rows per batch	2022-03-21 00:00:00	1.41421
+  102 Sort your data based on your commonly-used queries	2022-03-22 00:00:00	2.718
+  101 Hello, ClickHouse!	2022-03-22 14:04:09	-1
+  101 Granules are the smallest chunks of data read	2022-03-22 14:04:14	3.14159
 
   4 rows in set. Elapsed: 0.005 sec.
-</CodeBlock>
+  ```
 
 4. To exit the `clickhouse-client`, enter the **exit** command:
-<CodeBlock language="bash">
-    :) exit
-    Bye.
-</CodeBlock>
+  ```
+  :) exit
+  Bye.
+  ```
 
 </TabItem>
 </Tabs>
@@ -294,17 +290,17 @@ the timestamp of the event.
 
 1. Suppose we have the following text in a CSV file named `data.csv`:
 
-  <CodeBlock language="bash">
-    102,This is data in a file,2022-02-22 10:43:28,123.45
-    101,It is comma-separated,2022-02-23 00:00:00,456.78
-    103,Use FORMAT to specify the format,2022-02-21 10:43:30,678.90
-  </CodeBlock>
+  ```
+  102,This is data in a file,2022-02-22 10:43:28,123.45
+  101,It is comma-separated,2022-02-23 00:00:00,456.78
+  103,Use FORMAT to specify the format,2022-02-21 10:43:30,678.90
+  ```
 
 2. The following command inserts the data into `my_first_table`:
 
-  <CodeBlock language="bash">
-    clickhouse-client --query='INSERT INTO helloworld.my_first_table FORMAT CSV' &lt; data.csv
-  </CodeBlock>
+  ```
+  clickhouse-client --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
+  ```
 
 3. Notice the new rows appear in the table now:
     <img src={require('./images/quickstart_04.png').default} class="image" alt="New rows from CSV file" />
