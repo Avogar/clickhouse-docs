@@ -140,13 +140,6 @@ Like most database management systems, ClickHouse logically groups tables into *
   CREATE DATABASE IF NOT EXISTS helloworld
   ```
 
-ClickHouse supports several **table engines**.  The engine determines:
-   - How and where the data is stored
-   - Which queries are supported
-   - Whether or not the data is replicated
-
-There are many engines to choose from, but for a simple table on a single-node ClickHouse server, [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. 
-
 Run the following command to create a table named `my_first_table` in the `helloworld` database:
   ```
   CREATE TABLE helloworld.my_first_table
@@ -159,6 +152,22 @@ Run the following command to create a table named `my_first_table` in the `hello
   ENGINE = MergeTree()
   PRIMARY KEY (user_id, timestamp)
   ```
+
+In the example above, `my_first_table` is a MergeTree table with four columns:
+
+- `user_id`:  a 32-bit unsigned integer
+- `message`: a String data type, which replaces types like VARCHAR, BLOB, CLOB and others from other database systems
+- `timestamp`: a DateTime value, which represents an instant in time
+- `metric`: a 32-bit floating point number
+
+:::note table engines
+The table engine determines:
+   - How and where the data is stored
+   - Which queries are supported
+   - Whether or not the data is replicated
+
+There are many engines to choose from, but for a simple table on a single-node ClickHouse server, [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. 
+:::
 
 ### A Brief Intro to Primary Keys
 
@@ -174,13 +183,6 @@ column data that gets processed during `SELECT` queries.
 
 The primary key can be defined using the `PRIMARY KEY` parameter. If you define a table without a `PRIMARY KEY` specified,
 then the key becomes the tuple specified in the `ORDER BY` clause. If you specify both a `PRIMARY KEY ` and an `ORDER BY`, the primary key must be a subset of the sort order.
-
-In the example above, `my_first_table` is a MergeTree table with four columns:
-
-- `user_id`:  a 32-bit unsigned integer
-- `message`: a String data type, which replaces types like VARCHAR, BLOB, CLOB and others from other database systems
-- `timestamp`: a DateTime value, which represents an instant in time
-- `metric`: a 32-bit floating point number
 
 The primary key is also the sorting key, which is a tuple of `(user_id, timestamp)`.  Therefore, the data stored in each
 column file will be sorted by `user_id`, then `timestamp`.
@@ -219,10 +221,9 @@ Let's verify it worked:
 
 <Tabs groupId="deployMethod">
 <TabItem value="serverless" label="ClickHouse Cloud" default>
-    content
+    Download info to be determined (we need a download link for `clickhouse-client and clickhouse-local for Cloud customers)
 </TabItem>
 <TabItem value="selfmanaged" label="Self Managed">
-    content
 <Tabs groupId="os">
 <TabItem value="linux" label="Linux" default>
 
@@ -239,6 +240,10 @@ You can also connect to your ClickHouse server using a command-line tool named *
   ./clickhouse client
   ```
 
+</TabItem>
+</Tabs>
+</TabItem>
+</Tabs>
 
 If you get the smiley face prompt, you are ready to run queries!
   ```
@@ -295,11 +300,6 @@ To exit the `clickhouse-client`, enter the **exit** command:
   :) exit
   Bye.
   ```
-
-</TabItem>
-</Tabs>
-</TabItem>
-</Tabs>
 
 ## Insert a CSV file
 
