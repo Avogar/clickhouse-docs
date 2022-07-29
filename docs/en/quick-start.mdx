@@ -33,17 +33,17 @@ If your OS is not supported or for other install options, view the [installation
 <Tabs groupId="os">
 <TabItem value="linux" label="Linux" default>
 
-1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
+The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made runnable:
   ```bash
   curl https://clickhouse.com/ | sh
   ```
 
-2. Run the `install` command, which defines a collection of useful symlinks along with the files and folders used by ClickHouse - all of which you can see in the output of the install script:
+Run the `install` command, which defines a collection of useful symlinks along with the files and folders used by ClickHouse - all of which you can see in the output of the install script:
   ```bash
   sudo ./clickhouse install
   ```
 
-3. At the end of the install script, you are prompted for a password for the `default` user. Feel free to enter a password, or you can optionally leave it blank:
+At the end of the install script, you are prompted for a password for the `default` user. Feel free to enter a password, or you can optionally leave it blank:
   ```response
   Creating log directory /var/log/clickhouse-server.
   Creating data directory /var/lib/clickhouse.
@@ -65,7 +65,7 @@ If your OS is not supported or for other install options, view the [installation
     clickhouse-client
   ```
 
-4. Run the following command to start the ClickHouse server:
+Run the following command to start the ClickHouse server:
   ```
   sudo clickhouse start
   ```
@@ -73,12 +73,12 @@ If your OS is not supported or for other install options, view the [installation
 </TabItem>
 <TabItem value="mac" label="macOS">
 
-1. The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made executable:
+The simplest way to download ClickHouse locally is to run the following command. If your operating system is supported, an appropriate ClickHouse binary will be downloaded and made runnable:
   ```
   curl https://clickhouse.com/ | sh
   ```
 
-2. Run the following command to start the ClickHouse server. A user named `default` with no password is created on the initial startup:
+Run the following command to start the ClickHouse server. A user named `default` with no password is created on the initial startup:
   ```
   ./clickhouse server
   ```
@@ -115,11 +115,11 @@ The SQL console requires a username and password, the username is populated with
 </TabItem>
 <TabItem value="selfmanaged" label="Self Managed">
 
-1. The ClickHouse server listens for HTTP clients on port 8123 by default. There is a built-in UI for running SQL queries at [http://127.0.0.1:8123/play](http://127.0.0.1:8123/play) (change the hostname accordingly).
+The ClickHouse server listens for HTTP clients on port 8123 by default. There is a built-in UI for running SQL queries at [http://127.0.0.1:8123/play](http://127.0.0.1:8123/play) (change the hostname accordingly).
 
   ![The Play UI](./images/quickstart_01.png)
 
-2. Notice in your Play UI that the username was populated with **default** and the password text field was left empty. If you assigned a password to the `default` user, enter it into the password field.
+Notice in your Play UI that the username was populated with **default** and the password text field was left empty. If you assigned a password to the `default` user, enter it into the password field.
 
 </TabItem>
 </Tabs>
@@ -133,9 +133,9 @@ This returns the names of the databases, type it in the SQL console, and click *
 
   ![View the results](./images/quickstart/ShowDatabases.png)
 
-## 4. Create your own database and table
+## 4. Create a database and table
 
-As in most databases management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
+Like most database management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
   ```
   CREATE DATABASE IF NOT EXISTS helloworld
   ```
