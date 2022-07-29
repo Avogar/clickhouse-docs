@@ -11,7 +11,7 @@ import CodeBlock from '@theme/CodeBlock';
 # Quick Start
 
  <font size="5">
-ClickHouse runs on ClickHouse Cloud, or on any Linux, FreeBSD, or Mac OS X system with x86_64, AArch64, or PowerPC64LE CPU architecture. Follow these steps to get up and running with ClickHouse.
+ClickHouse runs on ClickHouse Cloud or any Linux, FreeBSD, or macOS system with x86_64, AArch64, or PowerPC64LE CPU architecture. Follow these steps to get up and running with ClickHouse.
  </font> 
 
 
@@ -124,28 +124,30 @@ The SQL console requires a username and password, the username is populated with
 </TabItem>
 </Tabs>
 
-3. Run a query. For example, the following returns the names of the databases:
+## 3. Run a query
+
+This returns the names of the databases, type it in the SQL console, and click **Run**:
   ```
   SHOW databases
   ```
 
-4. Click the **RUN** button and the response is displayed in the lower portion of the Play UI:
-
   ![View the results](./images/quickstart/ShowDatabases.png)
 
-## 3. Create a database, and a table in that database
+## 4. Create your own database and table
 
-1. As in most databases management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
+As in most databases management systems, ClickHouse logically groups tables into **databases**. Use the `CREATE DATABASE` command to create a new database in ClickHouse:
   ```
   CREATE DATABASE IF NOT EXISTS helloworld
   ```
 
-2. Even the simplest of tables in ClickHouse must specify a **table engine**. The engine determines details about the table like:
-   - how and where the data is stored
-   - which queries are supported
-   - whether or not the data is replicated
+ClickHouse supports several **table engines**.  The engine determines:
+   - How and where the data is stored
+   - Which queries are supported
+   - Whether or not the data is replicated
 
-  There are many engines to choose from, but for a simple table on a single-node ClickHouse server, [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. Run the following command to create a table named `my_first_table` in the `helloworld` database:
+There are many engines to choose from, but for a simple table on a single-node ClickHouse server, [MergeTree](/en/engines/table-engines/mergetree-family/mergetree.md) is your likely choice. 
+
+Run the following command to create a table named `my_first_table` in the `helloworld` database:
   ```
   CREATE TABLE helloworld.my_first_table
   (
@@ -157,7 +159,6 @@ The SQL console requires a username and password, the username is populated with
   ENGINE = MergeTree()
   PRIMARY KEY (user_id, timestamp)
   ```
-
 
 ### A Brief Intro to Primary Keys
 
@@ -171,7 +172,7 @@ data (referred to as the **index granularity**) creates an entry in the primary 
 creates a **sparse index** that can easily fit in memory, and the granules represent a stripe of the smallest amount of
 column data that gets processed during `SELECT` queries.
 
-The primary key can be defined using the `PRIMARY KEY` command. If you define a table without a `PRIMARY KEY` specified,
+The primary key can be defined using the `PRIMARY KEY` parameter. If you define a table without a `PRIMARY KEY` specified,
 then the key becomes the tuple specified in the `ORDER BY` clause. If you specify both a `PRIMARY KEY ` and an `ORDER BY`, the primary key must be a subset of the sort order.
 
 In the example above, `my_first_table` is a MergeTree table with four columns:
@@ -184,14 +185,16 @@ In the example above, `my_first_table` is a MergeTree table with four columns:
 The primary key is also the sorting key, which is a tuple of `(user_id, timestamp)`.  Therefore, the data stored in each
 column file will be sorted by `user_id`, then `timestamp`.
 
-## 4. Insert Data
+## 5. Insert Data
 
 You can use the familiar `INSERT INTO TABLE` command with ClickHouse, but it is important to understand that each insert into a `MergeTree` table causes a **part** to be created in storage.
 
-The best practice with ClickHouse is to insert a large number of rows per batch - tens of thousands or even millions of
+:::tip Clickhouse best practice
+Insert a large number of rows per batch - tens of thousands or even millions of
 rows at once. (Don't worry - ClickHouse can easily handle that type of volume!)
+:::
 
-1. Even for a simple example, let's insert more than one row at a time:
+Even for a simple example, let's insert more than one row at a time:
   ```
   INSERT INTO helloworld.my_first_table (user_id, message, timestamp, metric) VALUES
       (101, 'Hello, ClickHouse!',                                 now(),       -1.0    ),
@@ -199,19 +202,20 @@ rows at once. (Don't worry - ClickHouse can easily handle that type of volume!)
       (102, 'Sort your data based on your commonly-used queries', today(),     2.718   ),
       (101, 'Granules are the smallest chunks of data read',      now() + 5,   3.14159 )
   ```
+
 :::note
 Notice the `timestamp` column is populated using various **Date** and **DateTime** functions. ClickHouse has hundreds of useful functions that you can [view in the **Functions** section](/en/sql-reference/functions/).
 :::
 
-2. Let's verify it worked:
+Let's verify it worked:
   ```
   SELECT * FROM helloworld.my_first_table
   ```
    You should see the four rows of data that were inserted:
-   <img src={require('./images/quickstart_03.png').default} class="image" alt="New rows inserted" />
+   ![New rows inserted](./images/quickstart_03.png)
 
 
-## 5. The ClickHouse Client
+## The ClickHouse Client
 
 <Tabs groupId="deployMethod">
 <TabItem value="serverless" label="ClickHouse Cloud" default>
@@ -222,7 +226,7 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
 <Tabs groupId="os">
 <TabItem value="linux" label="Linux" default>
 
-1. You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**:
+You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**:
   ```
   clickhouse-client
   ```
@@ -230,13 +234,13 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
 </TabItem>
 <TabItem value="mac" label="macOS">
 
-1. You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**. Open a new terminal and change directories to where you downloaded the `clickhouse` binary in step 1 above, then run the following command:
+You can also connect to your ClickHouse server using a command-line tool named **clickhouse-client**. Open a new terminal and change directories to where you downloaded the `clickhouse` binary in step 1 above, then run the following command:
   ```
   ./clickhouse client
   ```
 
 
-2. If you get the smiley face prompt, you are ready to run queries!
+If you get the smiley face prompt, you are ready to run queries!
   ```
   :)
   ```
@@ -267,7 +271,7 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
    4 rows in set. Elapsed: 0.008 sec.
    ```
 
-3. Add a `FORMAT` clause to specify one of the [many supported output formats of ClickHouse](/en/interfaces/formats/):
+Add a `FORMAT` clause to specify one of the [many supported output formats of ClickHouse](/en/interfaces/formats/):
   ```sql
   SELECT *
   FROM helloworld.my_first_table
@@ -286,7 +290,7 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
   4 rows in set. Elapsed: 0.005 sec.
   ```
 
-4. To exit the `clickhouse-client`, enter the **exit** command:
+To exit the `clickhouse-client`, enter the **exit** command:
   ```
   :) exit
   Bye.
@@ -297,13 +301,13 @@ Notice the `timestamp` column is populated using various **Date** and **DateTime
 </TabItem>
 </Tabs>
 
-## 6. Insert a CSV file
+## Insert a CSV file
 
 A common task when getting started with a database is to insert some data that you already have in files. We have some
 sample data online that you can insert that represents clickstream data - it includes a user ID, a URL that was visited, and
 the timestamp of the event.
 
-1. Suppose we have the following text in a CSV file named `data.csv`:
+Suppose we have the following text in a CSV file named `data.csv`:
 
   ```
   102,This is data in a file,2022-02-22 10:43:28,123.45
@@ -311,14 +315,14 @@ the timestamp of the event.
   103,Use FORMAT to specify the format,2022-02-21 10:43:30,678.90
   ```
 
-2. The following command inserts the data into `my_first_table`:
+The following command inserts the data into `my_first_table`:
 
   ```
   clickhouse-client --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
   ```
 
-3. Notice the new rows appear in the table now:
-    <img src={require('./images/quickstart_04.png').default} class="image" alt="New rows from CSV file" />
+Notice the new rows appear in the table now:
+  ![New rows from CSV file](./images/quickstart_04.png)
 
 ## What's Next?
 
