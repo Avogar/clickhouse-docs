@@ -217,11 +217,24 @@ Let's verify it worked:
    ![New rows inserted](./images/quickstart_03.png)
 
 
-## The ClickHouse Client
+### The ClickHouse Client
 
 <Tabs groupId="deployMethod">
 <TabItem value="serverless" label="ClickHouse Cloud" default>
-    Download info to be determined (we need a download link for `clickhouse-client and clickhouse-local for Cloud customers)
+
+You can also connect to your ClickHouse Cloud service using a command-line tool named **clickhouse-client**. The connection details are in the **Native** tab in the services connection details:
+  ![clickhouse client connection details](./images/quickstart/CloudClickhouseClientDetails.png)
+
+  Download info to be determined (we need a download link for
+  `clickhouse-client and clickhouse-local for Cloud customers)
+
+  ```  
+  clickhouse-client --host ysx97qkuzb.us-east-1.aws.clickhouse.cloud \
+  --secure --port 9440 \
+  --user default \
+  --password <password>
+  ```
+
 </TabItem>
 <TabItem value="selfmanaged" label="Self Managed">
 <Tabs groupId="os">
@@ -301,7 +314,7 @@ To exit the `clickhouse-client`, enter the **exit** command:
   Bye.
   ```
 
-## Insert a CSV file
+### Insert a CSV file
 
 A common task when getting started with a database is to insert some data that you already have in files. We have some
 sample data online that you can insert that represents clickstream data - it includes a user ID, a URL that was visited, and
@@ -317,9 +330,41 @@ Suppose we have the following text in a CSV file named `data.csv`:
 
 The following command inserts the data into `my_first_table`:
 
+<Tabs groupId="deployMethod">
+<TabItem value="serverless" label="ClickHouse Cloud" default>
+
   ```
-  clickhouse-client --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
+  clickhouse-client --host ysx97qkuzb.us-east-1.aws.clickhouse.cloud \
+  --secure --port 9440 \
+  --user default \
+  --password <password> \
+  --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
   ```
+
+</TabItem>
+<TabItem value="selfmanaged" label="Self Managed">
+<Tabs groupId="os">
+<TabItem value="linux" label="Linux" default>
+
+
+  ```
+  clickhouse-client \
+  --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
+  ```
+
+</TabItem>
+<TabItem value="macOS" label="macOS">
+
+  ```
+  ./clickhouse client \
+  --query='INSERT INTO helloworld.my_first_table FORMAT CSV' < data.csv
+  ```
+
+
+</TabItem>
+</Tabs>
+</TabItem>
+</Tabs>
 
 Notice the new rows appear in the table now:
   ![New rows from CSV file](./images/quickstart_04.png)
