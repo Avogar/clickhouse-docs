@@ -1,4 +1,5 @@
 ---
+slug: /en/about-us/support
 sidebar_label: Commercial Support
 sidebar_position: 2
 ---

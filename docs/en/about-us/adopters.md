@@ -1,4 +1,5 @@
 ---
+slug: /en/about-us/adopters
 sidebar_label: Adopters
 sidebar_position: 30
 description: A list of companies using ClickHouse and their success stories

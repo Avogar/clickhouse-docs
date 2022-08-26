@@ -1,4 +1,5 @@
 # Kafka Connect Configurations
+slug: /en/integrations/data-ingestion/kafka/code/connectors/README
 
 Kafka Connect configurations supporting [ClickHouse documentation on Kafka](/en/integrations/kafka).
 

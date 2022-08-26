@@ -1,4 +1,5 @@
 # Transactional (ACID) support
+slug: /en/guides/developer/transactional
 
 INSERT into one partition* in one table* of MergeTree* family up to max_insert_size rows* is transactional (ACID):
 - Atomic: INSERT is succeeded or rejected as a whole: if confirmation is sent to the client, all rows INSERTed; if error is sent to the client, no rows INSERTed.

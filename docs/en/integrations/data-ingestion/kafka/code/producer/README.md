@@ -1,4 +1,5 @@
 # Kafka Producer
+slug: /en/integrations/data-ingestion/kafka/code/producer/README
 
 Supports [ClickHouse documentation on Kafka](/en/integrations/kafka).
 

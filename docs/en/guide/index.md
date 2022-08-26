@@ -1,4 +1,5 @@
 # Getting Started with ClickHouse Cloud
+slug: /en/guide/
 
 
 With ClickHouse Cloud, we are building a turnkey hosted ClickHouse experience! This guide will help you get started with creating a new ClickHouse Service, creating a table and inserting data. We have included some important details and helpful tips that you need to be aware of as you start using the ClickHouse Cloud.
