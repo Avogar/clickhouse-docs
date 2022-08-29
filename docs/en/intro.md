@@ -1,10 +1,10 @@
 ---
 slug: /en/intro
-sidebar_label: What is ClickHouse?
+sidebar_label: Key advantages of ClickHouse
 sidebar_position: 1
 ---
 
-# What Is ClickHouse?
+# Key advantages of ClickHouse over a typical OLAP database
 
 ClickHouse® is a column-oriented database management system (DBMS) for online analytical processing of queries (OLAP).
 
