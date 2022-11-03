@@ -11,6 +11,10 @@ Choice of data types and the `ORDER BY`and `PRIMARY KEY` tuples influence the wa
 
 ClickHouse has many data types, and there is a link at the bottom of the page to the full list.  In this document some of the data types that are used to improve performance are included.
 
+### LowCardinality(String)
+
+`LowCardinality()` is a superstructure that changes the data storage method and rules of data processing of the data type provided in parens.
+
 ## Testing
 
 The utility `clickhouse-benchmark` can be used to compare table structure, hardware, etc.  This example shows the same query against two tables in a single ClickHouse Cloud service.  The only difference between the two tables is that one uses a `String` for the column `pickup_ntaname`, and the other uses a `LowCardinality(String)` for that column.
