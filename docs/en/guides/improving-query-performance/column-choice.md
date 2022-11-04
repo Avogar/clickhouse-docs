@@ -15,6 +15,8 @@ ClickHouse has many data types, and there is a link at the bottom of the page to
 
 `LowCardinality()` is a superstructure that changes the data storage method and rules of data processing of the data type provided in parens.
 
+Consider replacing a `String` data type with a `LowCardinality(String)` when the number of distinct strings is less than 10,000.
+
 ### Enum8 and Enum16
 
 ### Int
