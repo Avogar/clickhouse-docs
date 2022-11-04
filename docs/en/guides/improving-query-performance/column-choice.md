@@ -7,6 +7,24 @@ title: Data Type Choice
 One of the contributors to ClickHouse speed is efficient data storage.
 Choice of data types and the `ORDER BY`and `PRIMARY KEY` tuples influence the way data is stored, the speed of queries, and the cost of running ClickHouse.
 
+Topics covered here:
+- If a field will always have a non-null value, then remove Nullable
+- If a Nullable field can have a default value (like zero or ''), then set default and remove nullable
+- If a String field has < 10,000 distinct values make it a LowCardinality(String)
+- Use UInt8 etc instead of Nullable(Float64)
+- Comparing the new schema with the old
+
+## Nullable()
+You will often see table DDL that contains `Nullable(String)` and `Nullable(Float64)` as these are general enough that you can insert most values into them and queries will succeed.  
+
+There are two problems:
+- The individual columns are often sized larger than needed (you don't need a 64 bit Float to store an 8 bit Integer).
+- Marking a column as `Nullable()` causes an additional table to be created for that column. 
+
+When to remove the Nullable?
+- If you know that the column will never contain nulls, for example the column is to contain a identifier and your code always requires that this be non-null)
+- When you have a non-null `DEFAULT` value for the column in the DDL, for example `DEFAULT ''` or `DEFAULT 0`
+
 ## Data types
 
 ClickHouse has many data types, and there is a link at the bottom of the page to the full list.  In this document some of the data types that are used to improve performance are included.
@@ -21,7 +39,6 @@ Consider replacing a `String` data type with a `LowCardinality(String)` when the
 
 ### Int
 
-### Nullable()
 
 ## Testing
 
