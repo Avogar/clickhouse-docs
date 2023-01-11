@@ -12,8 +12,8 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'ClickHouse',
   projectName: 'clickhouse-docs',
-
-  themes: ['@docusaurus/theme-live-codeblock'],
+  //markdown: { mermaid: true, },
+  themes: ['@docusaurus/theme-live-codeblock', '@docusaurus/theme-mermaid'],
   scripts: [
     '/docs/js/analytics.js',
   ],
@@ -54,7 +54,6 @@ const config = {
       }),
     ],
   ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -261,6 +260,10 @@ const config = {
           src: 'img/logo_without_text.svg',
         },
         copyright: `Copyright &copy; 2016&ndash;${new Date().getFullYear()} ClickHouse, Inc. ClickHouse Docs provided under the Creative Commons CC BY-NC-SA 4.0 license. ClickHouse&reg; is a registered trademark of ClickHouse, Inc.`,
+      },
+      mermaid: {
+        theme: { light: 'neutral', dark: 'forest' },
+        // mermaidOptions: { maxTextSize: 50 },
       },
       prism: {
         theme: lightTheme,
